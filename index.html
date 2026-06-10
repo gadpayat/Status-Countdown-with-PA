@@ -29,9 +29,7 @@ body{
     z-index:9999;
 }
 
-.close-btn:hover{
-    background:#ff4444;
-}
+.close-btn:hover{ background:#ff4444; }
 
 h1{
     text-align:center;
@@ -56,9 +54,7 @@ td{
     border:1px solid #444;
 }
 
-tr:nth-child(even){
-    background:#2a2a2a;
-}
+tr:nth-child(even){ background:#2a2a2a; }
 
 .running{ color:#0453db; font-weight:bold; }
 .ahead{ color:#04c41a; font-weight:bold; }
@@ -84,9 +80,6 @@ footer{
     text-align:center;
     font-size:10px;
     color:rgba(255,255,255,0.75);
-    letter-spacing:1px;
-    pointer-events:none;
-    z-index:9999;
 }
 </style>
 </head>
@@ -116,124 +109,29 @@ footer{
 
 <script>
 
+// 🔴 GOOGLE SHEETS WEB APP URL (REPLACE THIS)
+const SCRIPT_URL = "https://docs.google.com/spreadsheets/d/1uSsfjXRx_9rpMK7FA9cZLes4q4ehXBG38V-QyeC6Xf4/edit?pli=1&gid=776864011#gid=776864011";
+
 const defaultProjects = [
-{
-barangay:"Ba-i, Lagayan",
-start:"2026-04-15",
-end:"2026-06-05",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Collago, Lagayan",
-start:"2026-06-03",
-end:"2026-08-01",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Pang-ot, Lagayan",
-start:"2026-06-01",
-end:"2026-08-30",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Poblacion, Lagayan",
-start:"2026-01-20",
-end:"2026-10-15",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Pulot, Lagayan",
-start:"2026-06-10",
-end:"2026-10-01",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Bulbulala, La Paz",
-start:"2026-06-05",
-end:"2026-10-20",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Buli, La Paz",
-start:"2026-06-10",
-end:"2026-10-30",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Canan, La Paz",
-start:"2026-06-15",
-end:"2026-09-30",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Udangan, La Paz",
-start:"2026-06-25",
-end:"2026-08-15",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Garreta, Pidigan",
-start:"2026-06-01",
-end:"2026-10-30",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Immuli, Pidigan",
-start:"2026-02-20",
-end:"2026-10-15",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Monggoc, Pidigan",
-start:"2026-06-05",
-end:"2026-10-01",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Naguirayan, Pidigan",
-start:"2026-06-10",
-end:"2026-09-20",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Pamutic, Pidigan",
-start:"2026-06-18",
-end:"2026-04-30",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"San Diego, Pidigan",
-start:"2026-06-25",
-end:"2026-10-30",
-physicalAccomplishment:"",
-actualCompletion:""
-},
-{
-barangay:"Sulbec, Pidigan",
-start:"2026-06-15",
-end:"2026-10-20",
-physicalAccomplishment:"",
-actualCompletion:""
-}
+{barangay:"Ba-i, Lagayan", start:"2026-04-15", end:"2026-06-05", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Collago, Lagayan", start:"2026-06-03", end:"2026-08-01", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Pang-ot, Lagayan", start:"2026-06-01", end:"2026-08-30", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Poblacion, Lagayan", start:"2026-01-20", end:"2026-10-15", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Pulot, Lagayan", start:"2026-06-10", end:"2026-10-01", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Bulbulala, La Paz", start:"2026-06-05", end:"2026-10-20", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Buli, La Paz", start:"2026-06-10", end:"2026-10-30", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Canan, La Paz", start:"2026-06-15", end:"2026-09-30", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Udangan, La Paz", start:"2026-06-25", end:"2026-08-15", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Garreta, Pidigan", start:"2026-06-01", end:"2026-10-30", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Immuli, Pidigan", start:"2026-02-20", end:"2026-10-15", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Monggoc, Pidigan", start:"2026-06-05", end:"2026-10-01", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Naguirayan, Pidigan", start:"2026-06-10", end:"2026-09-20", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Pamutic, Pidigan", start:"2026-06-18", end:"2026-04-30", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"San Diego, Pidigan", start:"2026-06-25", end:"2026-10-30", physicalAccomplishment:"", actualCompletion:""},
+{barangay:"Sulbec, Pidigan", start:"2026-06-15", end:"2026-10-20", physicalAccomplishment:"", actualCompletion:""}
 ];
 
-let projects =
-JSON.parse(localStorage.getItem("projectsData"))
-|| defaultProjects;
+let projects = JSON.parse(localStorage.getItem("projectsData")) || defaultProjects;
 
 function updateTable(){
 
@@ -251,14 +149,12 @@ const totalDuration = end - start;
 const elapsed = now - start;
 
 const percent = Math.min(100, Math.max(0,(elapsed / totalDuration) * 100)).toFixed(1);
-
 const remaining = Math.ceil((end - now)/(1000*60*60*24));
 
 let statusClass = "";
 let statusText = "";
 
 if(project.actualCompletion){
-
 const actualDate = new Date(project.actualCompletion);
 
 const actualOnly = actualDate.toISOString().split("T")[0];
@@ -274,15 +170,9 @@ statusText = "Completed On Time ✅";
 statusClass = "delayed";
 statusText = "Delayed 🔴";
 }
-
 }else{
-if(now > end){
-statusClass = "delayed";
-statusText = "Delayed 🔴";
-}else{
-statusClass = "running";
-statusText = "Running 🟢";
-}
+statusClass = now > end ? "delayed" : "running";
+statusText = now > end ? "Delayed 🔴" : "Running 🟢";
 }
 
 table.innerHTML += `
@@ -294,13 +184,13 @@ table.innerHTML += `
 <td>
 <input type="date"
 value="${project.actualCompletion}"
-onchange="updateActualCompletion(${index},this.value)">
+onchange="updateActualCompletion(${index}, this.value)">
 </td>
 
 <td>
 <input type="text"
 value="${project.physicalAccomplishment}"
-onchange="updatePhysicalAccomplishment(${index},this.value)">
+onchange="updatePhysicalAccomplishment(${index}, this.value)">
 </td>
 
 <td>${remaining > 0 ? remaining : 0}</td>
@@ -311,17 +201,31 @@ ${statusText}
 </td>
 </tr>
 `;
-
 });
-
 }
 
-function updatePhysicalAccomplishment(index,value){
+// ✅ SYNC PHYSICAL ACCOMPLISHMENT TO GOOGLE SHEETS
+function updatePhysicalAccomplishment(index, value){
+
 projects[index].physicalAccomplishment = value;
 localStorage.setItem("projectsData", JSON.stringify(projects));
+
+fetch(SCRIPT_URL, {
+method: "POST",
+headers: {"Content-Type": "application/json"},
+body: JSON.stringify({
+barangay: projects[index].barangay,
+value: value
+})
+})
+.then(res => res.text())
+.then(data => console.log("Synced:", data))
+.catch(err => console.error("Sync error:", err));
+
 updateTable();
 }
 
+// (optional local-only for date)
 function updateActualCompletion(index,value){
 projects[index].actualCompletion = value;
 localStorage.setItem("projectsData", JSON.stringify(projects));
@@ -338,7 +242,7 @@ setInterval(updateTable,60000);
 </script>
 
 <footer>
-    KKB-CDD Monitoring System | Developed by Ghilous © 2026
+KKB-CDD Monitoring System | Developed by Ghilous © 2026
 </footer>
 
 </body>
