@@ -92,8 +92,8 @@ const sheetURL = "https://docs.google.com/spreadsheets/d/1uSsfjXRx_9rpMK7FA9cZLe
 // Column E = Physical Accomplishment (0-based index = 4)
 const ACCT_COL = 4;
 
-// Google Sheets row offset (Row 2 in sheet = first project)
-const SHEET_ROW_OFFSET = 2;
+// Google Sheets row offset (Row 5 in sheet = first project)
+const SHEET_ROW_OFFSET = 5;
 
 const defaultProjects = [
 { barangay:"Ba-i, Lagayan", start:"2026-04-15", end:"2026-06-05", actualCompletion:"" },
@@ -159,7 +159,7 @@ Math.max(0,(now-start)/(end-start)*100)
 
 const remaining = Math.ceil((end-now)/(1000*60*60*24));
 
-// 🔴 CELL ADDRESS LOGIC (E2, E3, E4...)
+// 🔴 CELL ADDRESS LOGIC (Q5, Q6, Q7...)
 const sheetRow = index + SHEET_ROW_OFFSET;
 const accomplishment = accomplishmentByRow[sheetRow] || "";
 
