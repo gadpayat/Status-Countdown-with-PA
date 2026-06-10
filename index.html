@@ -89,7 +89,7 @@ input[type="date"]{
 // 🔴 GOOGLE SHEET CSV
 const sheetURL = "https://docs.google.com/spreadsheets/d/1uSsfjXRx_9rpMK7FA9cZLes4q4ehXBG38V-QyeC6Xf4/edit?pli=1&gid=776864011#gid=776864011";
 
-// Column E = Physical Accomplishment (0-based index = 4)
+// Column Q = Physical Accomplishment (0-based index = 4)
 const ACCT_COL = 4;
 
 // Google Sheets row offset (Row 5 in sheet = first project)
@@ -107,7 +107,7 @@ let projects =
 JSON.parse(localStorage.getItem("projectsData"))
 || defaultProjects;
 
-// stores E column values by row index
+// stores Q column values by row index
 let accomplishmentByRow = {};
 
 // ------------------------------
