@@ -109,35 +109,154 @@ footer{
 
 <script>
 
-// 🔴 GOOGLE SHEETS WEB APP URL (REPLACE THIS)
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbx4adhqEe3oTfdXlhUWXeoOnVb-vDxT6vu2vxyREdPf7slxoxraxY-QKncoUZTF_FvqFg/exec";
 
 const physicalCells = {
-  "Ba-i, Lagayan":"Q5",
-  "Collago, Lagayan":"Q6",
-  "Pang-ot, Lagayan":"Q7",
-  "Poblacion, Lagayan":"Q8",
-  "Pulot, Lagayan":"Q9",
+"Ba-i, Lagayan":"Q5",
+"Collago, Lagayan":"Q6",
+"Pang-ot, Lagayan":"Q7",
+"Poblacion, Lagayan":"Q8",
+"Pulot, Lagayan":"Q9",
 
-  "Garreta, Pidigan":"Q10",
-  "Immuli, Pidigan":"Q11",
-  "Monggoc, Pidigan":"Q12",
-  "Naguirayan, Pidigan":"Q13",
-  "Pamutic, Pidigan":"Q14",
-  "San Diego, Pidigan":"Q15",
-  "Sulbec, Pidigan":"Q16",
+"Garreta, Pidigan":"Q10",
+"Immuli, Pidigan":"Q11",
+"Monggoc, Pidigan":"Q12",
+"Naguirayan, Pidigan":"Q13",
+"Pamutic, Pidigan":"Q14",
+"San Diego, Pidigan":"Q15",
+"Sulbec, Pidigan":"Q16",
 
-  "Bulbulala, La Paz":"Q17",
-  "Buli, La Paz":"Q18",
-  "Canan, La Paz":"Q19",
-  "Udangan, La Paz":"Q20"
+"Bulbulala, La Paz":"Q17",
+"Buli, La Paz":"Q18",
+"Canan, La Paz":"Q19",
+"Udangan, La Paz":"Q20"
 };
-let projects = JSON.parse(localStorage.getItem("projectsData")) || defaultProjects;
+
+const defaultProjects = [
+{
+barangay:"Ba-i, Lagayan",
+start:"2026-04-15",
+end:"2026-06-05",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Collago, Lagayan",
+start:"2026-06-03",
+end:"2026-08-01",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Pang-ot, Lagayan",
+start:"2026-06-01",
+end:"2026-08-30",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Poblacion, Lagayan",
+start:"2026-01-20",
+end:"2026-10-15",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Pulot, Lagayan",
+start:"2026-06-10",
+end:"2026-10-01",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Bulbulala, La Paz",
+start:"2026-06-05",
+end:"2026-10-20",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Buli, La Paz",
+start:"2026-06-10",
+end:"2026-10-30",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Canan, La Paz",
+start:"2026-06-15",
+end:"2026-09-30",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Udangan, La Paz",
+start:"2026-06-25",
+end:"2026-08-15",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Garreta, Pidigan",
+start:"2026-06-01",
+end:"2026-10-30",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Immuli, Pidigan",
+start:"2026-02-20",
+end:"2026-10-15",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Monggoc, Pidigan",
+start:"2026-06-05",
+end:"2026-10-01",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Naguirayan, Pidigan",
+start:"2026-06-10",
+end:"2026-09-20",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Pamutic, Pidigan",
+start:"2026-06-18",
+end:"2026-04-30",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"San Diego, Pidigan",
+start:"2026-06-25",
+end:"2026-10-30",
+physicalAccomplishment:"",
+actualCompletion:""
+},
+{
+barangay:"Sulbec, Pidigan",
+start:"2026-06-15",
+end:"2026-10-20",
+physicalAccomplishment:"",
+actualCompletion:""
+}
+];
+
+let projects =
+JSON.parse(localStorage.getItem("projectsData"))
+|| defaultProjects;
 
 function updateTable(){
 
-const table = document.getElementById("projectTable");
+const table =
+document.getElementById("projectTable");
+
 table.innerHTML = "";
 
 const now = new Date();
@@ -150,31 +269,56 @@ const end = new Date(project.end);
 const totalDuration = end - start;
 const elapsed = now - start;
 
-const percent = Math.min(100, Math.max(0,(elapsed / totalDuration) * 100)).toFixed(1);
-const remaining = Math.ceil((end - now)/(1000*60*60*24));
+const percent =
+Math.min(
+100,
+Math.max(
+0,
+(elapsed/totalDuration)*100
+)
+).toFixed(1);
 
-let statusClass = "";
-let statusText = "";
+const remaining =
+Math.ceil(
+(end-now)/(1000*60*60*24)
+);
+
+let statusClass="";
+let statusText="";
 
 if(project.actualCompletion){
-const actualDate = new Date(project.actualCompletion);
 
-const actualOnly = actualDate.toISOString().split("T")[0];
-const targetOnly = end.toISOString().split("T")[0];
+const actualDate =
+new Date(project.actualCompletion);
+
+const actualOnly =
+actualDate.toISOString().split("T")[0];
+
+const targetOnly =
+end.toISOString().split("T")[0];
 
 if(actualOnly < targetOnly){
-statusClass = "ahead";
-statusText = "Completed Ahead of Time 🚀";
-}else if(actualOnly === targetOnly){
-statusClass = "completed";
-statusText = "Completed On Time ✅";
-}else{
-statusClass = "delayed";
-statusText = "Delayed 🔴";
+statusClass="ahead";
+statusText="Completed Ahead of Time 🚀";
 }
+else if(actualOnly===targetOnly){
+statusClass="completed";
+statusText="Completed On Time ✅";
+}
+else{
+statusClass="delayed";
+statusText="Delayed 🔴";
+}
+
 }else{
-statusClass = now > end ? "delayed" : "running";
-statusText = now > end ? "Delayed 🔴" : "Running 🟢";
+
+if(now > end){
+statusClass="delayed";
+statusText="Delayed 🔴";
+}else{
+statusClass="running";
+statusText="Running 🟢";
+}
 }
 
 table.innerHTML += `
@@ -184,18 +328,20 @@ table.innerHTML += `
 <td>${project.end}</td>
 
 <td>
-<input type="date"
+<input
+type="date"
 value="${project.actualCompletion}"
-onchange="updateActualCompletion(${index}, this.value)">
+onchange="updateActualCompletion(${index},this.value)">
 </td>
 
 <td>
-<input type="text"
+<input
+type="text"
 value="${project.physicalAccomplishment}"
-onchange="updatePhysicalAccomplishment(${index}, this.value)">
+onchange="updatePhysicalAccomplishment(${index},this.value)">
 </td>
 
-<td>${remaining > 0 ? remaining : 0}</td>
+<td>${remaining>0?remaining:0}</td>
 <td>${percent}%</td>
 
 <td class="${statusClass}">
@@ -203,47 +349,62 @@ ${statusText}
 </td>
 </tr>
 `;
+
 });
+
 }
 
-// ✅ SYNC PHYSICAL ACCOMPLISHMENT TO GOOGLE SHEETS
-function updatePhysicalAccomplishment(index, value){
+function updatePhysicalAccomplishment(index,value){
 
-    projects[index].physicalAccomplishment = value;
+projects[index].physicalAccomplishment=value;
 
-    localStorage.setItem(
-        "projectsData",
-        JSON.stringify(projects)
-    );
+localStorage.setItem(
+"projectsData",
+JSON.stringify(projects)
+);
 
-    const barangay = projects[index].barangay;
-    const targetCell = physicalCells[barangay];
+const barangay =
+projects[index].barangay;
 
-    fetch(SCRIPT_URL,{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-            cell: targetCell,
-            value: value
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Updated:", targetCell);
-    })
-    .catch(error => {
-        console.error("Sync Error:", error);
-    });
+const targetCell =
+physicalCells[barangay];
 
-    updateTable();
+fetch(SCRIPT_URL,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+cell:targetCell,
+value:value
+})
+})
+.then(response=>response.json())
+.then(data=>{
+console.log(
+"Updated Google Sheet:",
+targetCell
+);
+})
+.catch(error=>{
+console.error(
+"Sync Error:",
+error
+);
+});
+
+updateTable();
 }
 
-// (optional local-only for date)
 function updateActualCompletion(index,value){
-projects[index].actualCompletion = value;
-localStorage.setItem("projectsData", JSON.stringify(projects));
+
+projects[index].actualCompletion=value;
+
+localStorage.setItem(
+"projectsData",
+JSON.stringify(projects)
+);
+
 updateTable();
 }
 
@@ -252,7 +413,11 @@ window.history.back();
 }
 
 updateTable();
-setInterval(updateTable,60000);
+
+setInterval(
+updateTable,
+60000
+);
 
 </script>
 
