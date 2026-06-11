@@ -317,9 +317,12 @@ ${statusText}
 }
 
 function updatePhysicalAccomplishment(index,value){
-projects[index].physicalAccomplishment = value;
-localStorage.setItem("projectsData", JSON.stringify(projects));
-updateTable();
+    if(value && !value.includes("%")){
+        value = value + "%";
+    }
+    projects[index].physicalAccomplishment = value;
+    localStorage.setItem("projectsData", JSON.stringify(projects));
+    updateTable();
 }
 
 function updateActualCompletion(index,value){
