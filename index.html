@@ -110,25 +110,25 @@ footer{
 <script>
 
 // 🔴 GOOGLE SHEETS WEB APP URL (REPLACE THIS)
-const SCRIPT_URL = "https://docs.google.com/spreadsheets/d/1uSsfjXRx_9rpMK7FA9cZLes4q4ehXBG38V-QyeC6Xf4/edit?pli=1&gid=776864011#gid=776864011";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4adhqEe3oTfdXlhUWXeoOnVb-vDxT6vu2vxyREdPf7slxoxraxY-QKncoUZTF_FvqFg/exec";
 
-const defaultProjects = [
-{barangay:"Ba-i, Lagayan", start:"2026-04-15", end:"2026-06-05", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Collago, Lagayan", start:"2026-06-03", end:"2026-08-01", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Pang-ot, Lagayan", start:"2026-06-01", end:"2026-08-30", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Poblacion, Lagayan", start:"2026-01-20", end:"2026-10-15", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Pulot, Lagayan", start:"2026-06-10", end:"2026-10-01", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Bulbulala, La Paz", start:"2026-06-05", end:"2026-10-20", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Buli, La Paz", start:"2026-06-10", end:"2026-10-30", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Canan, La Paz", start:"2026-06-15", end:"2026-09-30", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Udangan, La Paz", start:"2026-06-25", end:"2026-08-15", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Garreta, Pidigan", start:"2026-06-01", end:"2026-10-30", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Immuli, Pidigan", start:"2026-02-20", end:"2026-10-15", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Monggoc, Pidigan", start:"2026-06-05", end:"2026-10-01", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Naguirayan, Pidigan", start:"2026-06-10", end:"2026-09-20", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Pamutic, Pidigan", start:"2026-06-18", end:"2026-04-30", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"San Diego, Pidigan", start:"2026-06-25", end:"2026-10-30", physicalAccomplishment:"", actualCompletion:""},
-{barangay:"Sulbec, Pidigan", start:"2026-06-15", end:"2026-10-20", physicalAccomplishment:"", actualCompletion:""}
+const physicalCells = [
+{barangay:"Ba-i, Lagayan", start:"2026-04-15", end:"2026-06-05", physicalAccomplishment:"Q5", actualCompletion:""},
+{barangay:"Collago, Lagayan", start:"2026-06-03", end:"2026-08-01", physicalAccomplishment:"Q6", actualCompletion:""},
+{barangay:"Pang-ot, Lagayan", start:"2026-06-01", end:"2026-08-30", physicalAccomplishment:"Q7", actualCompletion:""},
+{barangay:"Poblacion, Lagayan", start:"2026-01-20", end:"2026-10-15", physicalAccomplishment:"Q8", actualCompletion:""},
+{barangay:"Pulot, Lagayan", start:"2026-06-10", end:"2026-10-01", physicalAccomplishment:"Q9", actualCompletion:""},
+{barangay:"Bulbulala, La Paz", start:"2026-06-05", end:"2026-10-20", physicalAccomplishment:"Q17", actualCompletion:""},
+{barangay:"Buli, La Paz", start:"2026-06-10", end:"2026-10-30", physicalAccomplishment:"Q18", actualCompletion:""},
+{barangay:"Canan, La Paz", start:"2026-06-15", end:"2026-09-30", physicalAccomplishment:"Q19", actualCompletion:""},
+{barangay:"Udangan, La Paz", start:"2026-06-25", end:"2026-08-15", physicalAccomplishment:"Q20", actualCompletion:""},
+{barangay:"Garreta, Pidigan", start:"2026-06-01", end:"2026-10-30", physicalAccomplishment:"Q10", actualCompletion:""},
+{barangay:"Immuli, Pidigan", start:"2026-02-20", end:"2026-10-15", physicalAccomplishment:"Q11", actualCompletion:""},
+{barangay:"Monggoc, Pidigan", start:"2026-06-05", end:"2026-10-01", physicalAccomplishment:"Q12", actualCompletion:""},
+{barangay:"Naguirayan, Pidigan", start:"2026-06-10", end:"2026-09-20", physicalAccomplishment:"Q13", actualCompletion:""},
+{barangay:"Pamutic, Pidigan", start:"2026-06-18", end:"2026-04-30", physicalAccomplishment:"Q14", actualCompletion:""},
+{barangay:"San Diego, Pidigan", start:"2026-06-25", end:"2026-10-30", physicalAccomplishment:"Q15", actualCompletion:""},
+{barangay:"Sulbec, Pidigan", start:"2026-06-15", end:"2026-10-20", physicalAccomplishment:"Q16", actualCompletion:""}
 ];
 
 let projects = JSON.parse(localStorage.getItem("projectsData")) || defaultProjects;
