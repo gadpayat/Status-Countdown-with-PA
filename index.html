@@ -291,14 +291,8 @@ table.innerHTML += `
 <td>${project.barangay}</td>
 <td>${project.start}</td>
 <td>${project.end}</td>
-
-<td>
-${project.actualCompletion || "-"}
-</td>
-
-<td>
-${project.physicalAccomplishment || "-"}
-</td>
+<td>${project.actualCompletion}</td>
+<td>${project.physicalAccomplishment}</td>
 
 <td>${remaining > 0 ? remaining : 0}</td>
 <td>${percent}%</td>
