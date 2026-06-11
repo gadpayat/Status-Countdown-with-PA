@@ -207,22 +207,35 @@ ${statusText}
 // ✅ SYNC PHYSICAL ACCOMPLISHMENT TO GOOGLE SHEETS
 function updatePhysicalAccomplishment(index, value){
 
-projects[index].physicalAccomplishment = value;
-localStorage.setItem("projectsData", JSON.stringify(projects));
+    projects[index].physicalAccomplishment = value;
 
-fetch(SCRIPT_URL, {
-method: "POST",
-headers: {"Content-Type": "application/json"},
-body: JSON.stringify({
-barangay: projects[index].barangay,
-value: value
-})
-})
-.then(res => res.text())
-.then(data => console.log("Synced:", data))
-.catch(err => console.error("Sync error:", err));
+    localStorage.setItem(
+        "projectsData",
+        JSON.stringify(projects)
+    );
 
-updateTable();
+    const barangay = projects[index].barangay;
+    const targetCell = physicalCells[barangay];
+
+    fetch(SCRIPT_URL,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            cell: targetCell,
+            value: value
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Updated:", targetCell);
+    })
+    .catch(error => {
+        console.error("Sync Error:", error);
+    });
+
+    updateTable();
 }
 
 // (optional local-only for date)
