@@ -293,15 +293,11 @@ table.innerHTML += `
 <td>${project.end}</td>
 
 <td>
-<input type="date"
-value="${project.actualCompletion}"
-onchange="updateActualCompletion(${index},this.value)">
+${project.actualCompletion || "-"}
 </td>
 
 <td>
-<input type="text"
-value="${project.physicalAccomplishment}"
-onchange="updatePhysicalAccomplishment(${index},this.value)">
+${project.physicalAccomplishment || "-"}
 </td>
 
 <td>${remaining > 0 ? remaining : 0}</td>
