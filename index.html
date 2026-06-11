@@ -251,7 +251,10 @@ const end = new Date(project.end);
 const totalDuration = end - start;
 const elapsed = now - start;
 
-const percent = Math.min(100, Math.max(0,(elapsed / totalDuration) * 100)).toFixed(1);
+const percent = Math.min(
+    100,
+    Math.max(0,(elapsed / totalDuration) * 100)
+).toFixed(1);
 
 const remaining = Math.ceil((end - now)/(1000*60*60*24));
 
@@ -277,6 +280,7 @@ statusText = "Delayed 🔴";
 }
 
 }else{
+
 if(now > end){
 statusClass = "delayed";
 statusText = "Delayed 🔴";
@@ -284,52 +288,38 @@ statusText = "Delayed 🔴";
 statusClass = "running";
 statusText = "Running 🟢";
 }
+
 }
 
 table.innerHTML += `
 <tr>
 <td>${project.barangay}</td>
+
 <td>${project.start}</td>
+
 <td>${project.end}</td>
 
 <td>
-<input type="date"
-value="${project.actualCompletion}"
-onchange="updateActualCompletion(${index},this.value)">
+${project.actualCompletion || "-"}
 </td>
 
 <td>
-<input type="text"
-value="${project.physicalAccomplishment}"
-onchange="updatePhysicalAccomplishment(${index},this.value)">
+${project.physicalAccomplishment || "-"}
 </td>
 
 <td>${remaining > 0 ? remaining : 0}</td>
+
 <td>${percent}%</td>
 
 <td class="${statusClass}">
 ${statusText}
 </td>
+
 </tr>
 `;
 
 });
 
-}
-
-function updatePhysicalAccomplishment(index,value){
-    if(value && !value.includes("%")){
-        value = value + "%";
-    }
-    projects[index].physicalAccomplishment = value;
-    localStorage.setItem("projectsData", JSON.stringify(projects));
-    updateTable();
-}
-
-function updateActualCompletion(index,value){
-projects[index].actualCompletion = value;
-localStorage.setItem("projectsData", JSON.stringify(projects));
-updateTable();
 }
 
 function closePage(){
