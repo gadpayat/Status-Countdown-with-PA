@@ -307,30 +307,6 @@ ${statusText}
 
 }
 
-function updatePhysicalAccomplishment(index,value){
-    if(value && !value.includes("%")){
-        value = value + "%";
-    }
-    projects[index].physicalAccomplishment = value;
-    localStorage.setItem("projectsData", JSON.stringify(projects));
-    updateTable();
-}
-
-function updateActualCompletion(index,value){
-projects[index].actualCompletion = value;
-localStorage.setItem("projectsData", JSON.stringify(projects));
-updateTable();
-}
-
-function closePage(){
-window.history.back();
-}
-
-updateTable();
-setInterval(updateTable,60000);
-
-</script>
-
 <footer>
     KKB-CDD Monitoring System | Developed by Ghilous © 2026
 </footer>
